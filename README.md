@@ -84,36 +84,13 @@ Book-review-API/
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repository-url>
-    cd your-api-project
+    git clone https://github.com/PankajKannavedia/book-review-api.git
+    cd book-rewiew-api
     ```
 2.  **Install dependencies:**
 
     ```bash
     npm install
-    ```
-
-## 📦 Project Setup
-
-### Prerequisites
-
-- Node.js (v18 or higher recommended)
-- npm or yarn
-- MongoDB (local instance or cloud service like MongoDB Atlas)
-
-### Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone <your-repository-url>
-    cd your-api-project # Navigate into your project directory
-    ```
-2.  **Install dependencies:**
-
-    ```bash
-    npm install
-    # OR
-    yarn install
     ```
 
 3.  **Environment Variables:**
@@ -211,3 +188,7 @@ This API uses **MongoDB** as its database, with **Mongoose** for object data mod
 
 - **One-to-Many (Users to Reviews):** One user can write many reviews. (Represented by `user` field in `reviews` referencing `users`).
 - **One-to-Many (Books to Reviews):** One book can have many reviews. (Represented by `book` field in `reviews` referencing `books`).
+
+### Adding json that can be imported in POSTMAN to check api -
+
+- **book-review-api.postman_collection.json**

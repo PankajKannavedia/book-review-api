@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "6f37466a-10c9-40b5-af23-e76f8ad35c20",
+		"name": "Book-Review-API",
+		"description": "###### **There i have added routes**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45164081",
+		"_collection_link": "https://pankaj-1177439.postman.co/workspace/877ccda8-a66f-4629-82f3-e19c033f9087/collection/45164081-6f37466a-10c9-40b5-af23-e76f8ad35c20?action=share&source=collection_link&creator=45164081"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Parse the JSON response",
+									"let responseJson;",
+									"try {",
+									"    responseJson = pm.response.json();",
+									"} catch (e) {",
+									"    // If response is not valid JSON, this will catch the error",
+									"    console.error(\"Error parsing JSON response:\", e);",
+									"    pm.test(\"Response is valid JSON\", false); // Mark test as failed",
+									"    // Stop further execution if JSON parsing failed",
+									"    return;",
+									"}",
+									"",
+									"// Check if the response contains a 'token' property",
+									"if (responseJson && responseJson.token) {",
+									"    // Set the 'authToken' environment variable with the received token",
+									"    pm.environment.set(\"authToken\", responseJson.token);",
+									"    console.log(\"Token saved to environment variable 'authToken':\", responseJson.token);",
+									"    pm.test(\"Token successfully extracted and saved\", true);",
+									"} else {",
+									"    console.log(\"No token found in response or response format unexpected.\");",
+									"    pm.test(\"Response should contain a token\", false); // Mark test as failed",
+									"}",
+									"",
+									"// Optional: Add a test to ensure token was received (if not already done above)",
+									"pm.test(\"Response should contain a token property\", function () {",
+									"    pm.expect(responseJson).to.have.property('token');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_name\": \"pankaj\",\n  \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_name\": \"pankaj\",\n  \"email\": \"pankaj@gmail.com\",\n  \"full_name\": \"Pankaj kannavedia\",\n  \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Login / Signup API"
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "ADD Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODQ0NDE3NzY0NWZjMGM2ZDliMjRkOTgiLCJ1c2VyX25hbWUiOiJwYW5rYWoiLCJpYXQiOjE3NDkzNjIwMDAsImV4cCI6MzMyODUzNjIwMDB9.cvCJJSvfC4h_zA-qgDwBkPH3MR8xlPJhXbvykzeFUNM",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"The Silent Melody\",\n  \"author\": \"Rabindranath Tagore\",\n  \"genre\": \"Poetry\",\n  \"publicationYear\": 1912,\n  \"description\": \"A collection of poignant verses exploring nature and human emotion.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/books/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/books/68452f2bcab9335db0f4e2bc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								"68452f2bcab9335db0f4e2bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Review Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\": 3.8,\n  \"comment\": \" ok ok book!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/books/684545805c51a483f1036f04/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								"684545805c51a483f1036f04",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Book By Name | AUTHOR",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/books/search?query=douglas adams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "douglas adams"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "API related to adding book"
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Update Review",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODQ0NDE3NzY0NWZjMGM2ZDliMjRkOTgiLCJ1c2VyX25hbWUiOiJwYW5rYWoiLCJpYXQiOjE3NDkzNjczNjMsImV4cCI6MzMyODUzNjczNjN9.5Kqroz_mF5eRZWDGrbuk9wTBaOOykG0FWXzgcXKAimI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\": 4.5,\n  \"comment\": \"Absolutely brilliant book! rated by pkk\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reviews/684545b55c51a483f1036f0b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews",
+								"684545b55c51a483f1036f0b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/reviews/684545b55c51a483f1036f0b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews",
+								"684545b55c51a483f1036f0b"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "API related to adding book"
+		}
+	]
+}
